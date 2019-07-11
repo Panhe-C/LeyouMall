@@ -48,4 +48,14 @@ public class SpecificationService {
         return this.paramMapper.select(record);
     }
 
+    public List<SpecGroup> queryGroupsWithParam(Long cid) {
+        List<SpecGroup> specGroups = this.queryGroupByCid(cid);
+
+        specGroups.forEach(specGroup -> {
+            List<SpecParam> params = this.queryParams(specGroup.getId(), null, null, null);
+            specGroup.setParams(params);
+        });
+        return specGroups;
+
+    }
 }

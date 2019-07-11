@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class GoodsController {
 
 
     /**
-     * 根据spuId查询Spu集合
+     * 根据spuId查询Sku集合
      * @param spuId
      * @return
      */
@@ -97,6 +98,21 @@ public class GoodsController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(skus);
+    }
+
+
+    /**
+     * 根据id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}")
+    public ResponseEntity<Spu> querySpuById(@PathVariable("id")Long id){
+        Spu spu = this.goodsService.querySpuById(id);
+        if(spu == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(spu);
     }
 
 
