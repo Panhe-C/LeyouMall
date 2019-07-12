@@ -7,6 +7,13 @@ spring:
     url: jdbc:mysql:///hm49
     username: root
     password: 1234
+  rabbitmq:
+    host: 192.168.1.135
+    virtual-host: /leyou
+    username: leyou
+    password: leyou
+    template:
+      exchange: LEYOU.ITEM.EXCHANGE  #设置默认的交换机
 
 eureka:
   client:
@@ -18,3 +25,5 @@ eureka:
 
 mybatis:
   type-aliases-package: com.leyou.item.pojo
+
+
