@@ -7,6 +7,8 @@ import com.leyou.item.bo.SpuBo;
 import com.leyou.item.mapper.*;
 import com.leyou.item.pojo.*;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,9 @@ public class GoodsService {
 
     @Autowired
     private StockMapper stockMapper;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     /**
      * 根据条件分页查询spu
@@ -114,7 +119,25 @@ public class GoodsService {
 
         //stock
 
+        //发送消息
+        sendMsg("insert",spuBo.getId());
 
+
+    }
+
+
+    /**
+     * 向交换机发送消息
+     * @param type
+     * @param id
+     */
+    private void sendMsg(String type,Long id) {
+        //发送消息
+        try {
+            this.amqpTemplate.convertAndSend("item."+type, id);//(route.key,message)配置文件中配置了默认的交换机
+        }catch (AmqpException e){
+            e.printStackTrace();
+        }
     }
 
     private void saveSkuAndStock(SpuBo spuBo) {
@@ -195,6 +218,7 @@ public class GoodsService {
         this.spuMapper.updateByPrimaryKeySelective(spuBo);
         this.spuDetailMapper.updateByPrimaryKeySelective(spuBo.getSpuDetail());
 
+        sendMsg("update",spuBo.getId());
     }
 
     public Spu querySpuById(Long id) {
