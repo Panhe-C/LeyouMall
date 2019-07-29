@@ -25,6 +25,13 @@ public class GoodsListener {
     public void save(Long id) throws IOException {
         if(id == null){return;}
         this.searchService.save(id);//存入索引
+
+
+//        try {
+//            this.searchService.save(id);//存入索引
+//        }catch (Exception e){
+//            System.out.println("searchservice发生异常");
+//        }
     }
 
     @RabbitListener(bindings = @QueueBinding(

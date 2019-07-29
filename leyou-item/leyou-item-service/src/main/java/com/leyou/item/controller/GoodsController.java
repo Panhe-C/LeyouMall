@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+
 public class GoodsController {
 
     @Autowired
@@ -113,6 +114,33 @@ public class GoodsController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(spu);
+    }
+
+
+    /**
+     * 根据skuId查询sku
+     * @param skuId
+     * @return
+     */
+    @GetMapping("id/{skuId}")
+    public ResponseEntity<Sku> querySkuBySkuId(@PathVariable("skuId")Long skuId){
+
+        Sku sku = this.goodsService.querySkuBySkuId(skuId);
+        if(sku == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(sku);
+    }
+
+
+    /**
+     * 减库存
+     *
+     * @return
+     */
+    @PostMapping("stock/decrese")
+    public ResponseEntity<Void> decreaseStock(){
+        return  ResponseEntity.ok().build();
     }
 
 

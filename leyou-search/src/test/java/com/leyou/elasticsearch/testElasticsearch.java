@@ -37,7 +37,9 @@ public class testElasticsearch {
 
     @Test
     public void test(){
+        //创建索引，会根据Goods类的@Document注解信息来创建
         this.elasticsearchTemplate.createIndex(Goods.class);
+        //配置映射，会根据Goods类中的id、filed等字段来自动完成映射
         this.elasticsearchTemplate.putMapping(Goods.class);
 
         Integer page = 1;

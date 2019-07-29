@@ -27,9 +27,14 @@ public class GoodsListener {
         if(id == null){
             return;
         }
-
-        //静态页面的
         this.goodsHtmlService.createHtml(id);
+
+//        try{
+//        //静态页面的
+//        this.goodsHtmlService.createHtml(id);}
+//        catch (Exception e){
+//            System.out.println("goods-web发生异常");
+//        };
     }
 
 

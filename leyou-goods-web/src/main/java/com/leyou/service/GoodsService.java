@@ -3,10 +3,9 @@ package com.leyou.service;
 
 import com.leyou.client.BrandClient;
 import com.leyou.client.CategoryClient;
-import com.leyou.client.GoodsCient;
+import com.leyou.client.GoodsClient;
 import com.leyou.client.SpecificationClient;
 import com.leyou.item.pojo.*;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class GoodsService {
     @Autowired
     private CategoryClient categoryClient;
     @Autowired
-    private GoodsCient goodsCient;
+    private GoodsClient goodsClient;
     @Autowired
     private SpecificationClient specificationClient;
 
@@ -29,9 +28,9 @@ public class GoodsService {
         Map<String,Object> model = new HashMap<>();
 
         //根据spuId查询spu
-        Spu spu = this.goodsCient.querySpuById(spuId);
+        Spu spu = this.goodsClient.querySpuById(spuId);
         //查询spuDetai
-        SpuDetail spuDetail = this.goodsCient.querySpuDetailBySpuId(spuId);
+        SpuDetail spuDetail = this.goodsClient.querySpuDetailBySpuId(spuId);
 
         //查询分类：Map<String,Object>
         List<Map<String,Object>> categories = new ArrayList<>();
@@ -46,7 +45,7 @@ public class GoodsService {
 
         Brand brand = this.brandClient.queryBrandById(spu.getBrandId());
 
-        List<Sku> skus = this.goodsCient.querySkusById(spuId);
+        List<Sku> skus = this.goodsClient.querySkusById(spuId);
 
         List<SpecGroup> groups = this.specificationClient.queryGroupsWithParam(spu.getCid3());
 

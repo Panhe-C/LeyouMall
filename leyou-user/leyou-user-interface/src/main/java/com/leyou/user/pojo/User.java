@@ -1,12 +1,14 @@
 package com.leyou.user.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Table(name = "tb_user")
 public class User {
@@ -14,16 +16,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Length(min = 4,max = 30,message = "用户名必须在4到30位之间")
     private String username;// 用户名
 
+    @Length(min = 4,max = 30,message = "密码必须在4到30位之间")
     @JsonIgnore   //对象序列化为json字符串时，忽略该属性
     private String password;// 密码
 
+
+    @Pattern(regexp = "^1[3456789]\\d{9}$",message = "手机号不合法")
     private String phone;// 电话
 
     private Date created;// 创建时间
 
-    @JsonIgnore
+    @JsonIgnore  //返回的json字段中不会包含盐值
     private String salt;// 密码的盐值
 
     public Long getId() {

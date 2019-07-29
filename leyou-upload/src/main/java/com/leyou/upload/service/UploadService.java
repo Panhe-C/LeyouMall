@@ -28,8 +28,6 @@ public class UploadService {
 
     public String uploadImage(MultipartFile file){
 
-
-
         String filename = file.getOriginalFilename();
 
         //校验文件类型
@@ -41,7 +39,6 @@ public class UploadService {
         }
 
         try {
-
             //校验文件内容
             BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
             if (bufferedImage == null) {

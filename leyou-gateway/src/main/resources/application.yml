@@ -10,7 +10,27 @@ eureka:
       defaultZone: http://localhost:10086/eureka
     registry-fetch-interval-seconds: 5
 zuul:
-  prefix: /api
+  prefix: /api #添加路由前缀
   routes:
-    item-service: /item/**  #路由到商品的微服务
+    item-service: /item/**      #路由到商品的微服务
     search-service: /search/**  #路由到搜索的微服务
+    user-service: /user/**      #路由到用户的微服务
+    auth-service: /auth/**      #路由到鉴权中心的微服务
+    cart-service: /cart/**      #路由到购物车的微服务
+    order-service: /order/**    #路由到订单的微服务
+    seckill-service: /seckill/**
+  add-host-header: true  #携带请求本身的head头信息
+  sensitive-headers:  #配置禁止使用的头信息，设置为null，否则set-cookie无效
+
+leyou:
+          jwt:
+            pubKeyPath: F:\学业资料\java\Java项目\乐优商城\temp\rsa\rsa.pub # 公钥地址
+            cookieName: LY_TOKEN
+          filter:
+            allowPaths:
+              - /api/auth
+              - /api/search
+              - /api/user/register
+              - /api/user/check
+              - /api/user/code
+              - /api/item
