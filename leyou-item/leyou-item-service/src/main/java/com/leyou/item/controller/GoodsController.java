@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-
+@RequestMapping("goods")
 public class GoodsController {
 
     @Autowired
@@ -54,7 +54,7 @@ public class GoodsController {
      * @param spuBo
      * @return
      */
-    @PostMapping("goods")
+    @PostMapping
     public ResponseEntity<Void> saveGoods(@RequestBody SpuBo spuBo){
         this.goodsService.saveGoods(spuBo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -65,7 +65,7 @@ public class GoodsController {
      * @param spuBo
      * @return
      */
-    @PutMapping("goods")
+    @PutMapping
     public ResponseEntity<Void> updateGoods(@RequestBody SpuBo spuBo){
         this.goodsService.updateGoods(spuBo);
         return ResponseEntity.noContent().build();

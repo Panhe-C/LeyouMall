@@ -23,14 +23,14 @@ zuul:
   sensitive-headers:  #配置禁止使用的头信息，设置为null，否则set-cookie无效
 
 leyou:
-          jwt:
-            pubKeyPath: F:\学业资料\java\Java项目\乐优商城\temp\rsa\rsa.pub # 公钥地址
-            cookieName: LY_TOKEN
-          filter:
-            allowPaths:
-              - /api/auth
-              - /api/search
-              - /api/user/register
-              - /api/user/check
-              - /api/user/code
-              - /api/item
+  jwt:
+    pubKeyPath: F:\学业资料\java\Java项目\乐优商城\temp\rsa\rsa.pub # 公钥地址
+    cookieName: LY_TOKEN
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item

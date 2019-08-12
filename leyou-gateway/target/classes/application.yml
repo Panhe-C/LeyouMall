@@ -10,7 +10,7 @@ eureka:
       defaultZone: http://localhost:10086/eureka
     registry-fetch-interval-seconds: 5
 zuul:
-  prefix: /api
+  prefix: /api #添加路由前缀
   routes:
     item-service: /item/**      #路由到商品的微服务
     search-service: /search/**  #路由到搜索的微服务

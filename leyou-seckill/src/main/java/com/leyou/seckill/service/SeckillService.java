@@ -2,7 +2,6 @@ package com.leyou.seckill.service;
 
 import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.Stock;
-//import com.leyou.item.service.GoodsService;
 import com.leyou.order.pojo.Order;
 import com.leyou.order.pojo.OrderDetail;
 import com.leyou.seckill.client.GoodsClient;
@@ -58,8 +57,8 @@ public class SeckillService {
 
         //1.根据skuid查询商品
         Long skuId = seckillParameter.getId();
-//        Sku sku = this.goodsClient.querySkuBySkuId(skuId);
-        Sku sku = this.skuMapper.selectByPrimaryKey(skuId);
+        Sku sku = this.goodsClient.querySkuBySkuId(skuId);
+//        Sku sku = this.skuMapper.selectByPrimaryKey(skuId);
         //2.插入到秒杀商品列表中
         SeckillGoods seckillGoods = new SeckillGoods();
         seckillGoods.setTitle(sku.getTitle());
@@ -129,7 +128,8 @@ public class SeckillService {
         order.setOrderDetails(Arrays.asList(orderDetail));
 
         String seck = "seckill";
-        ResponseEntity<List<Long>> responseEntity = this.orderClient.createOrder(seck,order);
+//        ResponseEntity<List<Long>> responseEntity = this.orderClient.createOrder(seck,order);
+        ResponseEntity<Long> responseEntity = this.orderClient.createOrder(seck,order);
 
         if(responseEntity.getStatusCode() == HttpStatus.OK){
             //库存不足，返回null
@@ -137,6 +137,6 @@ public class SeckillService {
         }
 
         //修改秒杀商品的库存
-        return responseEntity.getBody().get(0);
+        return responseEntity.getBody();
     }
 }

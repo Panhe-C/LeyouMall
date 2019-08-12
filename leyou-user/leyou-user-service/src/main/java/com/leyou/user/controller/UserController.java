@@ -56,7 +56,7 @@ public class UserController {
      * @return
      */
     @PostMapping("register")
-    public ResponseEntity<Void> register(@Valid User user, @RequestParam("code")String code){//对象的接受不需要加注解
+    public ResponseEntity<Void> register(@Valid User user, @RequestParam("code")String code){//对象的接收不需要加注解
         this.userService.register(user,code);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

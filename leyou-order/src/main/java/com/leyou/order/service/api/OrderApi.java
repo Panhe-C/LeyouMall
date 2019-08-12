@@ -17,7 +17,7 @@ public interface OrderApi {
      * @return
      */
     @PostMapping
-    ResponseEntity<List<Long>> createOrder(@RequestParam("seck") String seck, @RequestBody @Valid Order order);
+    ResponseEntity<Long> createOrder(@RequestParam("seck") String seck, @RequestBody @Valid Order order);
 
 
     /**

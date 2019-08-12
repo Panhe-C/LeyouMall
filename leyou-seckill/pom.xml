@@ -34,8 +34,9 @@
 
 <!--        商品微服务-->
         <dependency>
-            <groupId>com.leyou.item.interface</groupId>
+            <groupId>com.leyou.item</groupId>
             <artifactId>leyou-item-interface</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -51,10 +52,7 @@
             <groupId>com.leyou.order</groupId>
             <artifactId>leyou-order</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
 
 
