@@ -4,7 +4,6 @@ package com.leyou.seckill.controller;
 import com.leyou.seckill.pojo.SeckillGoods;
 import com.leyou.seckill.pojo.SeckillParameter;
 import com.leyou.seckill.service.SeckillService;
-import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

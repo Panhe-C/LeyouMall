@@ -8,6 +8,7 @@ spring:
     url: jdbc:mysql:///hm49?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     username: root
     password: 1234
+    driver-class-name: com.mysql.jdbc.Driver
   data:
     elasticsearch:
       cluster-name: elasticsearch
@@ -32,3 +33,20 @@ eureka:
     #ip-address: 127.0.0.1
     lease-expiration-duration-in-seconds: 10
     lease-renewal-interval-in-seconds: 5
+
+
+
+#通过feignclient调用订单服务下订单，可能出现超时的情况，需要配置下ribbon和hystrix
+ribbon:
+  ConnectTimeout: 400 #连接时间超时（ms）
+  ReadTimeout: 200 #通信时间超时（ms）
+  OkToRetryOnAllOperations: true #是否对所有操作重试
+  MaxAutoRetriesNextServer: 1 #对同一服务不同实例的重试次数
+  MaxAutoRetries: 1 #同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 10000 #熔断超时时长：10000ms

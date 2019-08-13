@@ -8,6 +8,7 @@ spring:
     url: jdbc:mysql:///hm49?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     username: root
     password: 1234
+    driver-class-name: com.mysql.jdbc.Driver
   data:
     elasticsearch:
       cluster-name: elasticsearch

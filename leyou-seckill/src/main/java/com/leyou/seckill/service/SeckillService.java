@@ -129,7 +129,7 @@ public class SeckillService {
 
         String seck = "seckill";
 //        ResponseEntity<List<Long>> responseEntity = this.orderClient.createOrder(seck,order);
-        ResponseEntity<Long> responseEntity = this.orderClient.createOrder(seck,order);
+        ResponseEntity<List<Long>> responseEntity = this.orderClient.createOrder(seck,order);
 
         if(responseEntity.getStatusCode() == HttpStatus.OK){
             //库存不足，返回null
@@ -137,6 +137,6 @@ public class SeckillService {
         }
 
         //修改秒杀商品的库存
-        return responseEntity.getBody();
+        return responseEntity.getBody().get(0);
     }
 }
