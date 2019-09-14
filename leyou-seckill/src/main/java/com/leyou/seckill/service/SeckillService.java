@@ -1,5 +1,6 @@
 package com.leyou.seckill.service;
 
+import com.leyou.common.utils.JsonUtils;
 import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.Stock;
 import com.leyou.order.pojo.Order;
@@ -10,7 +11,9 @@ import com.leyou.seckill.mapper.SeckillMapper;
 import com.leyou.seckill.mapper.SkuMapper;
 import com.leyou.seckill.mapper.StockMapper;
 import com.leyou.seckill.pojo.SeckillGoods;
+import com.leyou.seckill.pojo.SeckillMessage;
 import com.leyou.seckill.pojo.SeckillParameter;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +21,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 
 @Service
 public class SeckillService {
@@ -37,6 +44,12 @@ public class SeckillService {
     private SkuMapper skuMapper;
     @Autowired
     private OrderClient orderClient;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeckillService.class);
+
 //
 //    @Autowired
 //    private GoodsService goodsService;
@@ -58,7 +71,6 @@ public class SeckillService {
         //1.根据skuid查询商品
         Long skuId = seckillParameter.getId();
         Sku sku = this.goodsClient.querySkuBySkuId(skuId);
-//        Sku sku = this.skuMapper.selectByPrimaryKey(skuId);
         //2.插入到秒杀商品列表中
         SeckillGoods seckillGoods = new SeckillGoods();
         seckillGoods.setTitle(sku.getTitle());
@@ -138,5 +150,23 @@ public class SeckillService {
 
         //修改秒杀商品的库存
         return responseEntity.getBody().get(0);
+    }
+
+    /**
+     * 发送消息到秒杀队列中
+     *
+     * @param seckillMessage
+     */
+    public void sendMessage(SeckillMessage seckillMessage) {
+        String json = JsonUtils.serialize(seckillMessage);
+        System.out.println(json);
+
+        try {
+            this.amqpTemplate.convertAndSend("order.seckill",json);
+//            this.amqpTemplate.convertAndSend("order.seckill",seckillMessage.getSeckillGoods().getTitle());
+        }catch (Exception e){
+            LOGGER.error("秒杀商品消息发送异常，商品id：{}",seckillMessage.getSeckillGoods().getSkuId(),e);
+        }
+
     }
 }

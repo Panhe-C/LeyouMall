@@ -21,7 +21,6 @@ public class GoodsListener {
             value = @Queue(value = "LEYOU.ITEM.SAVE.QUEUE",durable = "true"),
             exchange = @Exchange(value = "LEYOU.ITEM.EXCHANGE",ignoreDeclarationExceptions = "true",type = ExchangeTypes.TOPIC),
             key = {"item.insert","item.update"}
-
     ))
     public void save(Long id){
         if(id == null){

@@ -20,14 +20,15 @@ spring:
     username: leyou
     password: leyou
     virtual-host: /leyou
-    template:
-      retry:
-        enabled: true
-        initial-interval: 10000ms
-        max-interval: 300000ms
-        multiplier: 2
-      exchange: leyou.item.exchange
-    publisher-confirms: true
+#    template:
+#      retry:
+#        enabled: true
+#        initial-interval: 10000ms
+#        max-interval: 300000ms
+#        multiplier: 2
+#      exchange: leyou.item.exchange
+#      exchange: LEYOU.ORDER.EXCHANGE
+#    publisher-confirms: true
   redis:
     host: 192.168.1.135
 eureka:

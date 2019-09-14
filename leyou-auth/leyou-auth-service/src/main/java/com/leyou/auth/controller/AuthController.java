@@ -63,6 +63,13 @@ public class AuthController {
     }
 
 
+    /**
+     * 用户验证
+     * @param token
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("verify")
     public ResponseEntity<UserInfo> verify(
             @CookieValue("LY_TOKEN")String token,
@@ -70,13 +77,12 @@ public class AuthController {
             HttpServletResponse response){
 
         try {
+            //1.从token中解析token信息
             UserInfo user = JwtUtils.getInfoFromToken(token, this.jwtProperties.getPublicKey());
 
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-
-
             //刷新jwt中有效时间
             token = JwtUtils.generateToken(user,this.jwtProperties.getPrivateKey(),this.jwtProperties.getExpire());
             //刷新cookie时间

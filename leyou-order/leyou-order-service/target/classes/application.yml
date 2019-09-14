@@ -4,30 +4,31 @@ server:
 spring:
   application:
     name: order-service
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/hm49?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.jdbc.Driver
-    druid:
-      initial-size: 5
-      min-idle: 5
-      max-active: 20
-      max-wait: 1000
-      test-on-borrow: true
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/hm49?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+#    username: root
+#    password: 1234
+#    driver-class-name: com.mysql.jdbc.Driver
+#    druid:
+#      initial-size: 5
+#      min-idle: 5
+#      max-active: 20
+#      max-wait: 1000
+#      test-on-borrow: true
   rabbitmq:
     host: 192.168.1.135
     username: leyou
     password: leyou
     virtual-host: /leyou
-    template:
-      retry:
-        enabled: true
-        initial-interval: 10000ms
-        max-interval: 300000ms
-        multiplier: 2
-      exchange: leyou.item.exchange
-    publisher-confirms: true
+#    template:
+#      retry:
+#        enabled: true
+#        initial-interval: 10000ms
+#        max-interval: 300000ms
+#        multiplier: 2
+#      exchange: leyou.item.exchange
+#      exchange: LEYOU.ORDER.EXCHANGE
+#    publisher-confirms: true
   redis:
     host: 192.168.1.135
 eureka:

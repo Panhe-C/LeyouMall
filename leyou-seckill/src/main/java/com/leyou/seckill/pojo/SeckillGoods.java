@@ -29,7 +29,7 @@ public class SeckillGoods {
     private Boolean enable;
 
     //秒杀商品的库存
-    @Transient
+//    @Transient
     private Integer stock;
     @Transient
     private Integer seckillTotal;

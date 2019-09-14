@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: seckill-service
+  redis:
+    host: 192.168.1.135
   datasource:
     url: jdbc:mysql:///hm49?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     username: root
@@ -20,6 +22,8 @@ spring:
     virtual-host: /leyou
     username: leyou
     password: leyou
+    template:
+      exchange: LEYOU.ORDER.EXCHANGE#设置交换机
 
 
 eureka:
@@ -33,3 +37,28 @@ eureka:
     #ip-address: 127.0.0.1
     lease-expiration-duration-in-seconds: 10
     lease-renewal-interval-in-seconds: 5
+
+leyou:
+  jwt:
+    pubKeyPath: F:\\学业资料\\java\\Java项目\\乐优商城\\temp\\rsa\\rsa.pub # 公钥地址
+    cookieName: LY_TOKEN # cookie的名称
+
+
+
+
+
+
+#通过feignclient调用订单服务下订单，可能出现超时的情况，需要配置下ribbon和hystrix
+ribbon:
+  ConnectTimeout: 400 #连接时间超时（ms）
+  ReadTimeout: 200 #通信时间超时（ms）
+  OkToRetryOnAllOperations: true #是否对所有操作重试
+  MaxAutoRetriesNextServer: 1 #对同一服务不同实例的重试次数
+  MaxAutoRetries: 1 #同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 10000 #熔断超时时长：10000ms
